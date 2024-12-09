@@ -16,8 +16,10 @@
             zip
             bashInteractive
             
-            deno
-
+            bun
+            sqlite
+            bruno
+            
             # nix related
             nixpkgs-fmt
           ];

@@ -1,0 +1,15 @@
+meta {
+  name: Get Releases
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:7313/releases?release=5
+  body: none
+  auth: none
+}
+
+params:query {
+  release: 5
+}

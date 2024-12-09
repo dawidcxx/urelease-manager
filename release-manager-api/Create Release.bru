@@ -1,0 +1,15 @@
+meta {
+  name: Create Release
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:7313/releases
+  body: json
+  auth: none
+}
+
+body:json {
+  {}
+}
