@@ -1,6 +1,5 @@
 import fs from "node:fs/promises";
 import { join, resolve } from "node:path";
-import { readFile } from "fs/promises";
 import { createHash } from "node:crypto";
 import type { FastifyRequest } from "fastify";
 import { createReadStream } from "node:fs";

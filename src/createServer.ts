@@ -9,13 +9,12 @@ import { scanChanges } from "./scanChanges.ts";
 import { getTrackedFiles } from "./db/getTrackedFiles.ts";
 import { createRelease } from "./db/createRelease.ts";
 import { ApplicationError, NoSuchFile } from "./errors.ts";
-import { fastify, type FastifyInstance } from "fastify";
+import { fastify } from "fastify";
 import { join, resolve } from "node:path";
 import { getReleasesSince } from "./db/getReleasesSince.ts";
-import { BunSQLiteDatabase, drizzle } from "drizzle-orm/bun-sqlite";
+import { drizzle } from "drizzle-orm/bun-sqlite";
 import fs from "fs";
 import { exists } from "fs/promises";
-import { releasesTable } from "./db/schema.ts";
 
 export interface CreateServerOptions {
   rootDir: string; // the directory where scannig for changes happens

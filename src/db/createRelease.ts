@@ -1,4 +1,3 @@
-import { LibSQLDatabase } from "drizzle-orm/libsql";
 import {
   ReleaseFileJsonSchema,
   releasesTable,

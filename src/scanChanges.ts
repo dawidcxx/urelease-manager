@@ -1,5 +1,5 @@
 import { computeSHA1, walkDir } from "./util";
-import { join, relative } from "node:path";
+import { relative } from "node:path";
 
 // filepath -> sha1
 type TrackedFilesLookup = Map<string, string>;
