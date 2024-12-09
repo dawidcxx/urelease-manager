@@ -1,9 +1,10 @@
 import fs from "node:fs/promises";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import { readFile } from "fs/promises";
 import { createHash } from "node:crypto";
 import type { FastifyRequest } from "fastify";
 import { createReadStream } from "node:fs";
+import { z } from "zod";
 
 export function mapOptional<T, U>(
   value: T | undefined | null,
@@ -67,3 +68,17 @@ export function getEnv(
   }
   return envVal ?? "";
 }
+
+export const PathValidatorSchema = (root: string) => z.string().refine(
+  (path) => {
+    try {
+      const resolvedPath = resolve(join(root, path));
+      return resolvedPath.startsWith(resolve(root));
+    } catch {
+      return false;
+    }
+  },
+  {
+    message: "Invalid file path",
+  }
+)

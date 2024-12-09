@@ -4,16 +4,19 @@ import {
   getQueryParam,
   mapOptional,
   parseQueryString,
+  PathValidatorSchema,
 } from "./util.ts";
 import { z, ZodError } from "zod";
 import { scanChanges } from "./scanChanges.ts";
 import { getTrackedFiles } from "./db/getTrackedFiles.ts";
 import { createRelease } from "./db/createRelease.ts";
-import { ApplicationError } from "./errors.ts";
+import { ApplicationError, NoSuchFile } from "./errors.ts";
 import { fastify } from "fastify";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import { getReleasesSince } from "./db/getReleasesSince.ts";
 import { drizzle } from "drizzle-orm/bun-sqlite";
+import fs from "fs";
+import { exists } from "fs/promises";
 
 const rootDir = getEnv("SCAN_DIR");
 const db = drizzle(getEnv("DB_FILE_NAME"));
@@ -66,26 +69,19 @@ app.post("/releases", async (req, reply) => {
     const release = await createRelease(db, { files: addedFiles });
     await reply.send(release);
   } else {
-    reply.send({  })
+    reply.send({});
   }
 });
 
 app.get("/files", async (req, reply) => {
   const fileSearchParam = getQueryParam(req, "file");
-  const filePathSchema = z.string().refine(
-    (path) => {
-      try {
-        const resolvedPath = join(rootDir, path);
-        return resolvedPath.startsWith(rootDir);
-      } catch {
-        return false;
-      }
-    },
-    {
-      message: "Invalid file path",
-    }
-  );
-  const filePath = filePathSchema.parse(fileSearchParam);
+  const filePath = PathValidatorSchema(rootDir).parse(fileSearchParam);
+  const finalFilePath = resolve(join(rootDir, filePath));
+  if (await exists(finalFilePath)) {
+    return reply.send(fs.createReadStream(finalFilePath));
+  } else {
+    throw new NoSuchFile(finalFilePath)
+  }
 });
 
 app.listen({

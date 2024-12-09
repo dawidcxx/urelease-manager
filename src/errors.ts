@@ -8,3 +8,10 @@ export class FailedToCreateReleaseNoChangedFiles extends ApplicationError {
     super("Failed to create the release, no file changes were detected");
   }
 }
+
+export class NoSuchFile extends ApplicationError {
+  httpCode: number = 404;
+  constructor(file: string) {
+    super(`Provided file: "${file}" does not exist`);
+  }
+}
