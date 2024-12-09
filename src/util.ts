@@ -20,7 +20,7 @@ export async function* walkDir(dir: string): AsyncGenerator<string> {
     if (entry.isDirectory()) {
       yield* walkDir(fullPath);
     } else if (entry.isFile()) {
-      yield fullPath;
+      yield fullPath
     }
   }
 }
