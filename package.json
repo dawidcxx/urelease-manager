@@ -8,8 +8,8 @@
     "drizzle-kit": "^0.29.1"
   },
   "scripts": {
-    "run": "bun run ./src/main.ts",
-    "dev": "bun run --watch ./src/main.ts"
+    "run": "bun run ./src/bootstrap.ts",
+    "dev": "bun run --watch ./src/bootstrap.ts"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
