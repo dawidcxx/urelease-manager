@@ -9,7 +9,7 @@ import { z, ZodError } from "zod";
 import { scanChanges } from "./scanChanges.ts";
 import { getTrackedFiles } from "./db/getTrackedFiles.ts";
 import { createRelease } from "./db/createRelease.ts";
-import { ApplicationError } from "./middleware/errors.ts";
+import { ApplicationError } from "./errors.ts";
 import { fastify } from "fastify";
 import { join } from "node:path";
 import { getReleasesSince } from "./db/getReleasesSince.ts";

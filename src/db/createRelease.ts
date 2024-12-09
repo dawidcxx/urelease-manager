@@ -7,7 +7,7 @@ import {
 import { max, sql } from "drizzle-orm";
 import z from "zod";
 import type { BunSQLiteDatabase } from "drizzle-orm/bun-sqlite";
-import { FailedToCreateReleaseNoChangedFiles } from "../middleware/errors.ts";
+import { FailedToCreateReleaseNoChangedFiles } from "../errors.ts";
 
 export const CreateReleaseRequestSchema = z.object({
   files: ReleaseFileJsonSchema,
