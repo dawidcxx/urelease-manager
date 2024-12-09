@@ -9,7 +9,8 @@
   },
   "scripts": {
     "run": "bun run ./src/bootstrap.ts",
-    "dev": "bun run --watch ./src/bootstrap.ts"
+    "dev": "bun run --watch ./src/bootstrap.ts",
+    "compile": "bun build ./src/bootstrap.ts --compile --outfile release-manager"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
