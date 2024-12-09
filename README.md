@@ -1,4 +1,3 @@
 # μRelease Manager
 
-minimalistic general purpose release manager powered by deno
-
+minimalistic general purpose release manager powered by bun
